@@ -28,7 +28,7 @@ function App() {
             <nav>
               <ul className="flex poke-font justify-between">
                 <li className="mr-4">
-                  <Link to="/">Home</Link>
+                  <Link exact to="/">Home</Link>
                 </li>
                 <li className="mr-4">
                   <Link to="/pokemons">Pokemons</Link>
@@ -39,6 +39,11 @@ function App() {
               </ul>
             </nav>
           </div>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/pokemons" component={Pokemons} />
+            <Route path="/favourites" component={Favourites} />
+          </Switch>
         </Router>
       </div>
     </main>
