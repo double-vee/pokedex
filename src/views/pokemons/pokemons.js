@@ -1,8 +1,20 @@
+import { useState, useEffect } from "react";
 import { Page } from "../../components/page";
 import { Title } from "../../components/title";
 import { pokeApiResponse } from "../../utils/sampleResponse";
 
 export function Pokemons() {
+  const [pokemons, setPokemons] = useState([]);
+
+  useEffect(() => {
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=20")
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        setPokemons(result);
+      })
+  }, []);
+
   return (
     <Page>
       <Title>Pokemons list</Title>
