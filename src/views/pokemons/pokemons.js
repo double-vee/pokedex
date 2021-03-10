@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Page } from "../../components/page";
 import { Title } from "../../components/title";
+import { Pokemon } from "./pokemon";
 // import { pokeApiResponse } from "../../utils/sampleResponse";
 
 export function Pokemons() {
@@ -17,8 +18,6 @@ export function Pokemons() {
     fetch(API_URL)
       .then(response => response.json())
       .then(result => {
-        console.log(result);
-
         setPokemons(result.results);
         setNext(result.next);
         setPrevious(result.previous);
@@ -38,8 +37,6 @@ export function Pokemons() {
     fetch(API_URL)
       .then(response => response.json())
       .then(result => {
-        console.log(result);
-
         setPokemons(result.results);
         setNext(result.next);
         setPrevious(result.previous);
@@ -57,8 +54,6 @@ export function Pokemons() {
     fetch(API_URL)
       .then(response => response.json())
       .then(result => {
-        console.log(result);
-
         setPokemons(result.results);
         setNext(result.next);
         setPrevious(result.previous);
@@ -69,6 +64,8 @@ export function Pokemons() {
         setLoading(false);
       });
   }
+
+  console.log(pokemons);
 
   return (
     <Page>
@@ -118,26 +115,26 @@ export function Pokemons() {
         Example of what I want to see here is something like this
       </p>
 
-      {loading && <p className="py-12 font-semibold text-4xl text-center text-white">Loading...</p>}
+      {loading && <p className="py-12 poke-font font-semibold text-4xl text-center text-white">Loading...</p>}
 
-      {error && <p className="py-12 font-semibold text-4xl text-center text-red-900">Something went wrong :(</p>}
+      {error && <p className="py-12 poke-font font-semibold leading-normal text-4xl text-center text-red-900">Something went wrong :(</p>}
 
       <ol className="poke-font text-white grid grid-cols-2 grid-flow-row-dense gap-1">
         {pokemons.map((pokemon, index) => (
-          <li
+          <Pokemon
             key={pokemon - index}
+            id={index + 1}
+            name={pokemon.name}
             className={`hover:bg-red-700 cursor-pointer ${
               index < 10 ? "col-start-1" : "col-start-2"
             }`}
-          >
-            #{index + 1} - {pokemon.name}
-          </li>
+          />
         ))}
       </ol>
       {loaded && (
         <div className="flex justify-center">
-          <button className="my-12 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase" onClick={handleOnClickPrevious}>Previous</button>
-          <button className="my-12 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase" onClick={handleOnClickNext}>Next</button>
+          <button className="mt-12 mb-6 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase" onClick={handleOnClickPrevious}>Previous</button>
+          <button className="mt-12 mb-6 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase" onClick={handleOnClickNext}>Next</button>
         </div>
       )}
     </Page>
