@@ -8,9 +8,10 @@ export function Pokemons() {
   const [loading, setLoading] = useState(true);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState("");
+  const [next, setNext] = useState(null);
+  const [previous, setPrevious] = useState(null);
 
   let API_URL = "https://pokeapi.co/api/v2/pokemon";
-  let APIData = null;
 
   useEffect(() => {
     fetch(API_URL)
@@ -18,8 +19,9 @@ export function Pokemons() {
       .then(result => {
         console.log(result);
 
-        APIData = result.results;
-        setPokemons(APIData);
+        setPokemons(result.results);
+        setNext(result.next);
+        setPrevious(result.previous);
         setLoading(false);
         setLoaded(true);
       })
@@ -29,6 +31,44 @@ export function Pokemons() {
         setLoaded(false);
       });
   }, []);
+
+  const handleOnClickNext = () => {
+    API_URL = next;
+
+    fetch(API_URL)
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+
+        setPokemons(result.results);
+        setNext(result.next);
+        setPrevious(result.previous);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
+  }
+
+  const handleOnClickPrevious = () => {
+    API_URL = previous;
+
+    fetch(API_URL)
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+
+        setPokemons(result.results);
+        setNext(result.next);
+        setPrevious(result.previous);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
+  }
 
   return (
     <Page>
@@ -94,6 +134,12 @@ export function Pokemons() {
           </li>
         ))}
       </ol>
+      {loaded && (
+        <div className="flex justify-center">
+          <button className="my-12 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase" onClick={handleOnClickPrevious}>Previous</button>
+          <button className="my-12 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase" onClick={handleOnClickNext}>Next</button>
+        </div>
+      )}
     </Page>
   );
 }
