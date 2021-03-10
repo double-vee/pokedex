@@ -21,6 +21,10 @@ export const PokemonDetails = (props) => {
       });
     }, []);
 
+  const handleOnClickAddToFav = () => {
+    localStorage.setItem('favourite_pokemon', pokemonData);
+  }
+
   if(loading) {
     return(
       <Page>
@@ -59,6 +63,7 @@ export const PokemonDetails = (props) => {
           </figcaption>
         </div>
       </figure>
+      <button className="m-4 py-2 px-4 bg-white rounded text-red-500 font-semibold text-xl uppercase" onClick={handleOnClickAddToFav}>Add to favourites</button>
     </Page>
   )
 }
