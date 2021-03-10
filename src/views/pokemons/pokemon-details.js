@@ -22,7 +22,7 @@ export const PokemonDetails = (props) => {
     }, []);
 
   const handleOnClickAddToFav = () => {
-    localStorage.setItem('favourite_pokemon', pokemonData);
+    localStorage.setItem(`favourite_pokemon_${pokemonData.id}`, JSON.stringify(pokemonData));
   }
 
   if(loading) {
