@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Page } from "../../components/page";
 import { Title } from "../../components/title";
-import { pokeApiResponse } from "../../utils/sampleResponse";
+// import { pokeApiResponse } from "../../utils/sampleResponse";
 
 export function Pokemons() {
   const [pokemons, setPokemons] = useState([]);
@@ -11,8 +11,13 @@ export function Pokemons() {
       .then(response => response.json())
       .then(result => {
         console.log(result);
-        setPokemons(result);
+
+        const APIData = result.results;
+        setPokemons(APIData);
       })
+      .catch(error => {
+        console.error(`Something went wrong: ${error}`);
+      });
   }, []);
 
   return (
@@ -63,7 +68,7 @@ export function Pokemons() {
         Example of what I want to see here is something like this
       </p>
       <ol className="poke-font text-white grid grid-cols-2 grid-flow-row-dense gap-1">
-        {pokeApiResponse.map((pokemon, index) => (
+        {pokemons.map((pokemon, index) => (
           <li
             key={pokemon - index}
             className={`hover:bg-red-700 cursor-pointer ${
