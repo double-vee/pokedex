@@ -5,18 +5,28 @@ import { Title } from "../../components/title";
 
 export function Pokemons() {
   const [pokemons, setPokemons] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState("");
+
+  let API_URL = "https://pokeapi.co/api/v2/pokemon";
+  let APIData = null;
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=20")
+    fetch(API_URL)
       .then(response => response.json())
       .then(result => {
         console.log(result);
 
-        const APIData = result.results;
+        APIData = result.results;
         setPokemons(APIData);
+        setLoading(false);
+        setLoaded(true);
       })
       .catch(error => {
-        console.error(`Something went wrong: ${error}`);
+        setError(error);
+        setLoading(false);
+        setLoaded(false);
       });
   }, []);
 
@@ -67,6 +77,11 @@ export function Pokemons() {
       <p className="text-white py-2">
         Example of what I want to see here is something like this
       </p>
+
+      {loading && <p className="py-12 font-semibold text-4xl text-center text-white">Loading...</p>}
+
+      {error && <p className="py-12 font-semibold text-4xl text-center text-red-900">Something went wrong :(</p>}
+
       <ol className="poke-font text-white grid grid-cols-2 grid-flow-row-dense gap-1">
         {pokemons.map((pokemon, index) => (
           <li
