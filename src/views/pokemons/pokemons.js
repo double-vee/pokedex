@@ -122,8 +122,8 @@ export function Pokemons() {
       <ol className="poke-font text-white grid grid-cols-2 grid-flow-row-dense gap-1">
         {pokemons.map((pokemon, index) => (
           <Pokemon
-            key={pokemon - index}
-            id={index + 1}
+            key={pokemon.url.split('/')[6]}
+            id={pokemon.url.split('/')[6]}
             name={pokemon.name}
             className={`hover:bg-red-700 cursor-pointer ${
               index < 10 ? "col-start-1" : "col-start-2"
