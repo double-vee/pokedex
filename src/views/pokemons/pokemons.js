@@ -2,70 +2,42 @@ import { useState, useEffect } from "react";
 import { Page } from "../../components/page";
 import { Title } from "../../components/title";
 import { Pokemon } from "./pokemon";
-// import { pokeApiResponse } from "../../utils/sampleResponse";
 
 export function Pokemons() {
+  const API_URL = "https://pokeapi.co/api/v2/pokemon";
+
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState("");
   const [next, setNext] = useState(null);
   const [previous, setPrevious] = useState(null);
-
-  let API_URL = "https://pokeapi.co/api/v2/pokemon";
+  const [url, setUrl] = useState(API_URL);
 
   useEffect(() => {
-    fetch(API_URL)
-      .then(response => response.json())
-      .then(result => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((result) => {
         setPokemons(result.results);
         setNext(result.next);
         setPrevious(result.previous);
         setLoading(false);
         setLoaded(true);
       })
-      .catch(error => {
+      .catch((error) => {
         setError(error);
         setLoading(false);
         setLoaded(false);
       });
-  }, []);
+  }, [url]);
 
-  const handleOnClickNext = () => {
-    API_URL = next;
+  const handleNext = () => {
+    setUrl(next);
+  };
 
-    fetch(API_URL)
-      .then(response => response.json())
-      .then(result => {
-        setPokemons(result.results);
-        setNext(result.next);
-        setPrevious(result.previous);
-        setLoading(false);
-      })
-      .catch(error => {
-        setError(error);
-        setLoading(false);
-      });
-  }
-
-  const handleOnClickPrevious = () => {
-    API_URL = previous;
-
-    fetch(API_URL)
-      .then(response => response.json())
-      .then(result => {
-        setPokemons(result.results);
-        setNext(result.next);
-        setPrevious(result.previous);
-        setLoading(false);
-      })
-      .catch(error => {
-        setError(error);
-        setLoading(false);
-      });
-  }
-
-  console.log(pokemons);
+  const handlePrevious = () => {
+    setUrl(previous);
+  };
 
   return (
     <Page>
@@ -85,7 +57,8 @@ export function Pokemons() {
           mind) like example below
         </li>
         <li>
-         [Extra] Add buttons PREVIOUS - NEXT at the bottom so I can load next batch of pokemons
+          [Extra] Add buttons PREVIOUS - NEXT at the bottom so I can load next
+          batch of pokemons
         </li>
         <li>
           Handle states:
@@ -106,24 +79,31 @@ export function Pokemons() {
           <span className="font-bold">ADD TO FAVOURITE </span>button which will
           save selected pokemon to{" "}
           <span className="font-bold">localStorage</span> so later I can display
-          it in Favourite component.
-          [Extra] Maximum of 6, meaning if I add 7th pokemon
-          the first one gets removed from the localStorage
+          it in Favourite component. [Extra] Maximum of 6, meaning if I add 7th
+          pokemon the first one gets removed from the localStorage
         </li>
       </ol>
       <p className="text-white py-2">
         Example of what I want to see here is something like this
       </p>
 
-      {loading && <p className="py-12 poke-font font-semibold text-4xl text-center text-white">Loading...</p>}
+      {loading && (
+        <p className="py-12 poke-font font-semibold text-4xl text-center text-white">
+          Loading...
+        </p>
+      )}
 
-      {error && <p className="py-12 poke-font font-semibold leading-normal text-4xl text-center text-red-900">Something went wrong :(</p>}
+      {error && (
+        <p className="py-12 poke-font font-semibold leading-normal text-4xl text-center text-red-900">
+          Something went wrong :(
+        </p>
+      )}
 
       <ol className="poke-font text-white grid grid-cols-2 grid-flow-row-dense gap-1">
         {pokemons.map((pokemon, index) => (
           <Pokemon
-            key={pokemon.url.split('/')[6]}
-            id={pokemon.url.split('/')[6]}
+            key={pokemon.url.split("/")[6]}
+            id={pokemon.url.split("/")[6]}
             name={pokemon.name}
             className={`hover:bg-red-700 cursor-pointer ${
               index < 10 ? "col-start-1" : "col-start-2"
@@ -133,8 +113,18 @@ export function Pokemons() {
       </ol>
       {loaded && (
         <div className="flex justify-center">
-          <button className="mt-12 mb-6 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase" onClick={handleOnClickPrevious}>Previous</button>
-          <button className="mt-12 mb-6 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase" onClick={handleOnClickNext}>Next</button>
+          <button
+            className="mt-12 mb-6 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase"
+            onClick={handlePrevious}
+          >
+            Previous
+          </button>
+          <button
+            className="mt-12 mb-6 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase"
+            onClick={handleNext}
+          >
+            Next
+          </button>
         </div>
       )}
     </Page>
