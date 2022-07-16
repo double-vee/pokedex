@@ -1,3 +1,9 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
 .poke-font {
   font-family: "pokemon-font";
 }

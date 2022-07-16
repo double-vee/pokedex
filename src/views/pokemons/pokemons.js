@@ -9,23 +9,29 @@ export function Pokemons() {
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [next, setNext] = useState(null);
   const [previous, setPrevious] = useState(null);
   const [url, setUrl] = useState(API_URL);
 
   useEffect(() => {
     fetch(url)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw Error("Could not fetch data");
+        }
+        return response.json();
+      })
       .then((result) => {
         setPokemons(result.results);
         setNext(result.next);
         setPrevious(result.previous);
         setLoading(false);
         setLoaded(true);
+        setError(null);
       })
       .catch((error) => {
-        setError(error);
+        setError(error.message);
         setLoading(false);
         setLoaded(false);
       });
@@ -44,44 +50,47 @@ export function Pokemons() {
       <Title>Pokemons list</Title>
 
       {loading && (
-        <p className="py-12 poke-font font-semibold text-4xl text-center text-white">
+        <p className="poke-font font-semibold text-center text-white">
           Loading...
         </p>
       )}
 
       {error && (
-        <p className="py-12 poke-font font-semibold leading-normal text-4xl text-center text-red-900">
-          Something went wrong :(
-        </p>
+        <div className="poke-font font-semibold leading-relaxed text-center text-red-900">
+          <p>Something went wrong :(</p>
+          <p>{error}</p>
+        </div>
       )}
 
-      <ol className="poke-font text-white grid grid-cols-2 grid-flow-row-dense gap-1">
-        {pokemons.map((pokemon, index) => (
-          <Pokemon
-            key={pokemon.url.split("/")[6]}
-            id={pokemon.url.split("/")[6]}
-            name={pokemon.name}
-            className={`hover:bg-red-700 cursor-pointer ${
-              index < 10 ? "col-start-1" : "col-start-2"
-            }`}
-          />
-        ))}
-      </ol>
       {loaded && (
-        <div className="flex justify-center">
-          <button
-            className="mt-12 mb-6 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase"
-            onClick={handlePrevious}
-          >
-            Previous
-          </button>
-          <button
-            className="mt-12 mb-6 mx-4 w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase"
-            onClick={handleNext}
-          >
-            Next
-          </button>
-        </div>
+        <>
+          <ol className="poke-font text-white grid grid-cols-2 grid-flow-row-dense gap-1 mt-4 mb-8">
+            {pokemons.map((pokemon, index) => (
+              <Pokemon
+                key={pokemon.url.split("/")[6]}
+                id={pokemon.url.split("/")[6]}
+                name={pokemon.name}
+                className={`hover:bg-red-700 cursor-pointer ${
+                  index < 10 ? "col-start-1" : "col-start-2"
+                }`}
+              />
+            ))}
+          </ol>
+          <div className="flex justify-center gap-6">
+            <button
+              className="w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase"
+              onClick={handlePrevious}
+            >
+              Previous
+            </button>
+            <button
+              className="w-32 py-4 bg-white rounded text-red-500 font-semibold text-xl uppercase"
+              onClick={handleNext}
+            >
+              Next
+            </button>
+          </div>
+        </>
       )}
     </Page>
   );
