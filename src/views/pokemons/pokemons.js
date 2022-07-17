@@ -84,14 +84,14 @@ export function Pokemons() {
           </ol>
           <div className="flex justify-center gap-6">
             <button
-              className="w-32 py-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-xl uppercase"
+              className="w-32 py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-xl uppercase"
               onClick={handlePrevious}
               disabled={!previous}
             >
               Previous
             </button>
             <button
-              className="w-32 py-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-xl uppercase"
+              className="w-32 py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-xl uppercase"
               onClick={handleNext}
               disabled={!next}
             >
