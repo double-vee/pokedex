@@ -62,7 +62,13 @@ export function Pokemons() {
         </div>
       )}
 
-      {loaded && (
+      {pokemons.length === 0 && (
+        <p className="poke-font font-semibold leading-relaxed text-center text-red-900">
+          No pokemons fetched
+        </p>
+      )}
+
+      {loaded && pokemons.length > 0 && (
         <>
           <ol className="poke-font text-white grid grid-cols-2 grid-flow-row-dense gap-1 mt-4 mb-8">
             {pokemons.map((pokemon, index) => (
