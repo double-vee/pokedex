@@ -5,18 +5,24 @@ import { Title } from "../../components/title";
 export const PokemonDetails = (props) => {
   const [pokemonData, setPokemonData] = useState({});
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [favPokemons, setFavPokemons] = useState([]);
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${props.match.params.id}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw Error("Could not fetch data");
+        }
+        return response.json();
+      })
       .then((data) => {
         setPokemonData(data);
         setLoading(false);
+        setError(null);
       })
       .catch((error) => {
-        setError(error);
+        setError(error.message);
         setLoading(false);
       });
   }, []);
@@ -43,7 +49,7 @@ export const PokemonDetails = (props) => {
     return (
       <Page>
         <Title>Pokemon details</Title>
-        <p className="py-12 poke-font font-semibold text-4xl text-center text-white">
+        <p className="poke-font font-semibold text-center text-white">
           Loading...
         </p>
       </Page>
@@ -54,9 +60,10 @@ export const PokemonDetails = (props) => {
     return (
       <Page>
         <Title>Pokemon details</Title>
-        <p className="py-12 poke-font font-semibold leading-normal text-4xl text-center text-red-900">
-          Something went wrong :(
-        </p>
+        <div className="poke-font font-semibold leading-relaxed text-center text-red-900">
+          <p>Something went wrong :(</p>
+          <p>{error}</p>
+        </div>
       </Page>
     );
   }
