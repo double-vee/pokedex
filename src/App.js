@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
-import { Favourites } from "./views/favourites/favourites";
+import { Favorites } from "./views/favorites/favorites";
 import { Home } from "./views/home/home";
 import { Pokemons } from "./views/pokemons/pokemons";
 import { PokemonDetails } from "./views/pokemons/pokemon-details";
@@ -20,7 +20,7 @@ function App() {
                   <Link to="/pokemons">Pokemons</Link>
                 </li>
                 <li>
-                  <Link to="/favourites">Favourites</Link>
+                  <Link to="/favorites">Favorites</Link>
                 </li>
               </ul>
             </nav>
@@ -29,7 +29,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/pokemons" component={Pokemons} />
             <Route path="/pokemons/:id" component={PokemonDetails} />
-            <Route path="/favourites" component={Favourites} />
+            <Route path="/favorites" component={Favorites} />
           </Switch>
         </Router>
       </div>
