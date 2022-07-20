@@ -62,7 +62,7 @@ export function Pokemons() {
         </div>
       )}
 
-      {pokemons.length === 0 && (
+      {loaded && pokemons.length === 0 && (
         <p className="poke-font font-semibold leading-relaxed text-center text-red-900">
           No pokemons fetched
         </p>
@@ -70,32 +70,32 @@ export function Pokemons() {
 
       {loaded && pokemons.length > 0 && (
         <>
-          <ol className="poke-font text-white grid grid-cols-2 grid-flow-row-dense gap-1 mt-4 mb-8">
+          <ol className="poke-font text-white grid grid-cols-1 sm:grid-cols-2 grid-flow-row-dense gap-y-2 gap-x-8 sm:mt-4 mb-8">
             {pokemons.map((pokemon, index) => (
               <Pokemon
                 key={pokemon.url.split("/")[6]}
                 id={pokemon.url.split("/")[6]}
                 name={pokemon.name}
                 className={`hover:bg-red-700 cursor-pointer ${
-                  index < 10 ? "col-start-1" : "col-start-2"
+                  index < 10 ? "sm:col-start-1" : "sm:col-start-2"
                 }`}
               />
             ))}
           </ol>
           <div className="flex justify-center gap-6">
             <button
-              className="w-32 py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-xl uppercase"
+              className="w-20 sm:w-28 p-2 sm:px-4 bg-white hover:bg-red-100 rounded text-red-500 poke-font font-semibold text-xl"
               onClick={handlePrevious}
               disabled={!previous}
             >
-              Previous
+              ←
             </button>
             <button
-              className="w-32 py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-xl uppercase"
+              className="w-20 sm:w-28 p-2 sm:px-4 bg-white hover:bg-red-100 rounded text-red-500 poke-font font-semibold text-xl"
               onClick={handleNext}
               disabled={!next}
             >
-              Next
+              →
             </button>
           </div>
         </>

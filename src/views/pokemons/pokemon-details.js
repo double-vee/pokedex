@@ -71,7 +71,7 @@ export const PokemonDetails = (props) => {
   return (
     <Page>
       <Title>Pokemon details</Title>
-      <figure className="max-w-md mt-4 mb-8 bg-gray-100 rounded-xl p-4">
+      <figure className="max-w-md sm:mt-4 mb-8 bg-gray-100 rounded-xl p-4">
         <img
           className="w-32 h-32 rounded-full mx-auto object-cover bg-white"
           src={pokemonData.sprites.front_default}
@@ -87,7 +87,7 @@ export const PokemonDetails = (props) => {
         </figcaption>
       </figure>
       <button
-        className="py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-xl uppercase"
+        className="poke-font py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-base uppercase"
         onClick={addToFav}
       >
         Add to favorites

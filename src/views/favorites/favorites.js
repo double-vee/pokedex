@@ -20,7 +20,7 @@ export const Favorites = () => {
   return (
     <Page>
       <Title>Favorites</Title>
-      <div className="grid grid-rows-2 grid-flow-col gap-4 mt-4">
+      <div className="grid grid-rows-6 sm:grid-rows-2 grid-flow-col gap-4 sm:mt-4">
         {pokemons.map((pokemon) => (
           <PokemonProfile
             key={pokemon.id}

@@ -7,12 +7,12 @@ import { PokemonDetails } from "./views/pokemons/pokemon-details";
 
 function App() {
   return (
-    <main className="App min-h-full overflow-auto p-8 bg-red-100">
-      <div className="max-w-2xl py-8 mx-auto">
+    <main className="App min-h-full overflow-auto p-4 bg-red-100">
+      <div className="max-w-2xl sm:py-8 mx-auto">
         <Router>
           <div>
             <nav>
-              <ul className="flex poke-font justify-between gap-4">
+              <ul className="flex flex-col sm:flex-row poke-font justify-between items-center gap-2">
                 <li>
                   <Link to="/">Home</Link>
                 </li>
