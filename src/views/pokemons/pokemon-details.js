@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { Page } from "../../components/page";
 import { Title } from "../../components/title";
 
@@ -6,7 +7,7 @@ export const PokemonDetails = (props) => {
   const [pokemonData, setPokemonData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [favPokemons, setFavPokemons] = useState([]);
+  const [favPokemons, setFavPokemons] = useLocalStorage("pokemons", []);
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
@@ -27,17 +28,6 @@ export const PokemonDetails = (props) => {
         setLoading(false);
       });
   }, []);
-
-  useEffect(() => {
-    const storageData = localStorage.getItem("pokemons");
-    if (storageData) {
-      setFavPokemons(JSON.parse(storageData));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("pokemons", JSON.stringify(favPokemons));
-  }, [favPokemons]);
 
   const addToFav = () => {
     if (favPokemons.find((pokemon) => pokemon.id === pokemonData.id)) {
