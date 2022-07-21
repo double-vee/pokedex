@@ -7,6 +7,7 @@ export const PokemonDetails = (props) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [favPokemons, setFavPokemons] = useState([]);
+  const [alert, setAlert] = useState(null);
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${props.match.params.id}`)
@@ -39,9 +40,19 @@ export const PokemonDetails = (props) => {
   }, [favPokemons]);
 
   const addToFav = () => {
+    if (favPokemons.find((pokemon) => pokemon.id === pokemonData.id)) {
+      setAlert(
+        `You have already added ${pokemonData.name[0].toUpperCase()}${pokemonData.name.slice(
+          1
+        )}`
+      );
+      return;
+    }
+
     if (favPokemons.length === 6) {
       setFavPokemons(favPokemons.shift());
     }
+
     setFavPokemons([...favPokemons, pokemonData]);
   };
 
@@ -86,6 +97,11 @@ export const PokemonDetails = (props) => {
           </div>
         </figcaption>
       </figure>
+      {alert && (
+        <p className="poke-font mb-8 font-semibold leading-relaxed text-center text-red-900">
+          {alert}
+        </p>
+      )}
       <button
         className="poke-font py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-base uppercase"
         onClick={addToFav}
