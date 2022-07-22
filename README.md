@@ -1,64 +1,50 @@
-# Praca domowa nr 5
+# Pokedex
 
-## Pokedex
+This is a homework assignment from the Frontend Developer bootcamp at InfoShare Academy. The task included:
 
-Używając Pokemon API stwórz POKEDEX :)
+- fetching and displaying the list of pokemons from PokeApi
+- creating a detailed pokemon card view
+- saving pokemons in localStorage and displaying the saved cards
+- creating components
+- creating routes
+- handling states
 
-PokeApi - https://pokeapi.co/api/v2/
+App built with:
 
-Instrukcje odnośnie tego co trzeba zrobić znajdują się kolejno w plikach.
+- React v17
+- React Router v5
+- React Hooks
+- Tailwind CSS
+- PokeApi: https://pokeapi.co/api/v2/
 
-Nie piszę ich tutaj, ponieważ zdarza się, że ktoś nawet nie zajrzy do repozytorium i robi po swojemu.
+## Live site:
 
-## Czego się nauczysz wykonując to zadanie domowe na poważnie
+[https://double-vee.github.io/pokedex](https://double-vee.github.io/pokedex)
 
-* Routing
-* Integracja z zewnętrznym API
-* Praca z hookami
-* Integracja z localStorage
-* Renderowanie elementów
-* Tworzenie komponentów
+## Screenshots:
 
-Wszystkie te rzeczy mogą i powinny zostać wykorzystane w projekcie, nie bój się dodawać własnych komponentów, zobacz jak stworzone zostały przykładowe dwa.
+<figure>
+  <figcaption>
+    <p>Favorites:</p>
+  </figcaption>
+  <img src="./favorites.png" alt="Favorites">
+</figure>
 
-Potrzebne paczki są już zainstalowane.
+<figure>
+  <figcaption>
+    <p>Details:</p>
+  </figcaption>
+  <img src="./details.png" alt="Details">
+</figure>
 
-Do stylowania użyłem tailwind.css natomiast śmiało można dodawać własne pliki do stylowania.
+<figure>
+  <figcaption>
+    <p>List:</p>
+  </figcaption>
+  <img src="./pokemons.png" alt="List">
+</figure>
 
-## Punktacja
+## To run the app in the development mode:
 
-Poprawny routing - 2 pkt
-
-Pobieranie listy pokemnów i jej wyświetlanie - 2 pkt
-
-Obsługa stanów pośrednich - 1 pkt
-
-Dodawanie do Ulubionych - 1 pkt
-
-Wyświetlenie z localStorage danych na stronie Ulubionych - 2 pkt
-
-Widok szczegółowy pokemona - 3 pkt (+ dodawanie do ulubionych)
-
-### Extra
-
-PREV i NEXT buttons + współpraca ze stronnicowanym API - 2 pkt
-
-Nałożenie limitu 6 pokemonów w sekcji Ulubione i wyrzucanie pierwszego dodanego, gdy dołożymy ponad limit - 2 pkt
-
-## Termin 10.03.2021 do godziny 23:59
-
-------------------------------------
-
-## Available Scripts
-
-In the project directory, you can run:
-
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
+1. Clone the repo
+2. In the project directory, run `npm i && npm start`
