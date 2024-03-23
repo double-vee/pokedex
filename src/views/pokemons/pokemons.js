@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { Page } from "../../components/page";
-import { Title } from "../../components/title";
-import { Pokemon } from "./pokemon";
+import { useState, useEffect } from 'react';
+import { Page } from '../../components/page';
+import { Title } from '../../components/title';
+import { Pokemon } from './pokemon';
 
 export function Pokemons() {
-  const API_URL = "https://pokeapi.co/api/v2/pokemon";
+  const API_URL = 'https://pokeapi.co/api/v2/pokemon';
 
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ export function Pokemons() {
     fetch(url)
       .then((response) => {
         if (!response.ok) {
-          throw Error("Could not fetch data");
+          throw Error('Could not fetch data');
         }
         return response.json();
       })
@@ -73,11 +73,11 @@ export function Pokemons() {
           <ol className="poke-font text-white grid grid-cols-1 sm:grid-cols-2 grid-flow-row-dense gap-y-2 gap-x-8 sm:mt-4 mb-8">
             {pokemons.map((pokemon, index) => (
               <Pokemon
-                key={pokemon.url.split("/")[6]}
-                id={pokemon.url.split("/")[6]}
+                key={pokemon.url.split('/')[6]}
+                id={pokemon.url.split('/')[6]}
                 name={pokemon.name}
                 className={`hover:bg-red-700 cursor-pointer ${
-                  index < 10 ? "sm:col-start-1" : "sm:col-start-2"
+                  index < 10 ? 'sm:col-start-1' : 'sm:col-start-2'
                 }`}
               />
             ))}
@@ -87,6 +87,7 @@ export function Pokemons() {
               className="w-20 sm:w-28 p-2 sm:px-4 bg-white hover:bg-red-100 rounded text-red-500 poke-font font-semibold text-xl"
               onClick={handlePrevious}
               disabled={!previous}
+              aria-label="Previous"
             >
               ←
             </button>
@@ -94,6 +95,7 @@ export function Pokemons() {
               className="w-20 sm:w-28 p-2 sm:px-4 bg-white hover:bg-red-100 rounded text-red-500 poke-font font-semibold text-xl"
               onClick={handleNext}
               disabled={!next}
+              aria-label="Next"
             >
               →
             </button>
