@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Page } from '../../components/page';
 import { Title } from '../../components/title';
 
-export const PokemonDetails = ({ match: { params }, history }) => {
-  const URL = `https://pokeapi.co/api/v2/pokemon/${params.id}`;
+export const PokemonDetails = () => {
+  const { id } = useParams();
+  const history = useHistory();
+
+  const URL = `https://pokeapi.co/api/v2/pokemon/${id}`;
 
   const [pokemonData, setPokemonData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,22 +18,22 @@ export const PokemonDetails = ({ match: { params }, history }) => {
   const [favState, setFavState] = useState('initial');
 
   useEffect(() => {
-    fetch(URL)
-      .then((response) => {
-        if (!response.ok) {
-          throw Error('Could not fetch data');
-        }
-        return response.json();
-      })
-      .then((data) => {
+    const getPokemon = async () => {
+      try {
+        const response = await fetch(URL);
+        const data = await response.json();
+
         setPokemonData(data);
         setLoading(false);
         setError(null);
-      })
-      .catch((error) => {
-        setError(error.message);
+      } catch (error) {
+        setError('Could not fetch data');
         setLoading(false);
-      });
+        console.log(error);
+      }
+    };
+
+    getPokemon();
   }, [URL]);
 
   const addToFav = () => {

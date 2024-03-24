@@ -1,9 +1,9 @@
-import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
-import "./App.css";
-import { Favorites } from "./views/favorites/favorites";
-import { Home } from "./views/home/home";
-import { Pokemons } from "./views/pokemons/pokemons";
-import { PokemonDetails } from "./views/pokemons/pokemon-details";
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import './App.css';
+import { Favorites } from './views/favorites/favorites';
+import { Home } from './views/home/home';
+import { Pokemons } from './views/pokemons/pokemons';
+import { PokemonDetails } from './views/pokemons/pokemon-details';
 
 function App() {
   return (
@@ -26,10 +26,24 @@ function App() {
             </nav>
           </div>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/pokemons" component={Pokemons} />
-            <Route path="/pokemons/:id" component={PokemonDetails} />
-            <Route path="/favorites" component={Favorites} />
+            <Route
+              exact
+              path="/"
+            >
+              <Home />
+            </Route>
+            <Route
+              exact
+              path="/pokemons"
+            >
+              <Pokemons />
+            </Route>
+            <Route path="/pokemons/:id">
+              <PokemonDetails />
+            </Route>
+            <Route path="/favorites">
+              <Favorites />
+            </Route>
           </Switch>
         </Router>
       </div>
