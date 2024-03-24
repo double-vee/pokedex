@@ -3,7 +3,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Page } from '../../components/page';
 import { Title } from '../../components/title';
 
-export const PokemonDetails = ({ match: { params } }) => {
+export const PokemonDetails = ({ match: { params }, history }) => {
   const URL = `https://pokeapi.co/api/v2/pokemon/${params.id}`;
 
   const [pokemonData, setPokemonData] = useState(null);
@@ -11,6 +11,7 @@ export const PokemonDetails = ({ match: { params } }) => {
   const [error, setError] = useState(null);
   const [favPokemons, setFavPokemons] = useLocalStorage('pokemons', []);
   const [alert, setAlert] = useState(null);
+  const [favState, setFavState] = useState('initial');
 
   useEffect(() => {
     fetch(URL)
@@ -41,11 +42,14 @@ export const PokemonDetails = ({ match: { params } }) => {
       return;
     }
 
+    setFavState('faving');
+
     if (favPokemons.length === 6) {
       setFavPokemons(favPokemons.shift());
     }
 
     setFavPokemons([...favPokemons, pokemonData]);
+    setFavState('faved');
   };
 
   return (
@@ -82,17 +86,31 @@ export const PokemonDetails = ({ match: { params } }) => {
               </div>
             </figcaption>
           </figure>
-          {alert && (
-            <p className="poke-font mb-8 font-semibold leading-relaxed text-center text-red-900">
-              {alert}
-            </p>
+          {alert ? (
+            <>
+              <p className="poke-font mb-8 font-semibold leading-relaxed text-center text-red-900">
+                {alert}
+              </p>
+              <button
+                className="poke-font py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-base uppercase"
+                onClick={() => history.go(-1)}
+              >
+                Back to Pokemons
+              </button>
+            </>
+          ) : (
+            <button
+              className="poke-font py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-base uppercase"
+              onClick={addToFav}
+              disabled={favState !== 'initial'}
+            >
+              {favState === 'initial'
+                ? 'Add to favorites'
+                : favState === 'faving'
+                ? 'Adding...'
+                : 'Added!'}
+            </button>
           )}
-          <button
-            className="poke-font py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-base uppercase"
-            onClick={addToFav}
-          >
-            Add to favorites
-          </button>
         </>
       )}
     </Page>

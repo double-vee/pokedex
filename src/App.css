@@ -5,5 +5,13 @@ body,
 }
 
 .poke-font {
-  font-family: "pokemon-font";
+  font-family: 'pokemon-font';
+}
+
+button[disabled] {
+  cursor: default;
+}
+
+button[disabled]:hover {
+  background-color: white;
 }
