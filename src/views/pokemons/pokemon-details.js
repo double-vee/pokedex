@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Page } from '../../components/page';
 import { Title } from '../../components/title';
 
 export const PokemonDetails = () => {
   const { id } = useParams();
-  const history = useHistory();
 
   const URL = `https://pokeapi.co/api/v2/pokemon/${id}`;
 
@@ -98,12 +97,12 @@ export const PokemonDetails = () => {
               <p className="poke-font mb-8 font-semibold leading-relaxed text-center text-red-900">
                 {alert}
               </p>
-              <button
-                className="poke-font py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-base uppercase"
-                onClick={() => history.go(-1)}
+              <Link
+                to="/pokemons"
+                className="poke-font py-2 px-4 hover:text-black text-white text-l"
               >
                 Back to Pokemons
-              </button>
+              </Link>
             </>
           ) : (
             <button
