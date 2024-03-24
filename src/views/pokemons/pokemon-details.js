@@ -11,7 +11,7 @@ export const PokemonDetails = () => {
   const URL = `https://pokeapi.co/api/v2/pokemon/${id}`;
 
   const [pokemonData, setPokemonData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [favPokemons, setFavPokemons] = useLocalStorage('pokemons', []);
   const [alert, setAlert] = useState(null);
@@ -20,12 +20,15 @@ export const PokemonDetails = () => {
   useEffect(() => {
     const getPokemon = async () => {
       try {
+        setLoading(true);
+        setError(null);
+
         const response = await fetch(URL);
         const data = await response.json();
 
         setPokemonData(data);
         setLoading(false);
-        setError(null);
+        setFavState('initial');
       } catch (error) {
         setError('Could not fetch data');
         setLoading(false);
@@ -73,7 +76,7 @@ export const PokemonDetails = () => {
         </div>
       )}
 
-      {pokemonData !== null && (
+      {!loading && !error && pokemonData !== null && (
         <>
           <figure className="max-w-md sm:mt-4 mb-8 bg-gray-100 rounded-xl p-4">
             <img
