@@ -15,26 +15,26 @@ export function Pokemons() {
   const [url, setUrl] = useState(API_URL);
 
   useEffect(() => {
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw Error('Could not fetch data');
-        }
-        return response.json();
-      })
-      .then((result) => {
-        setPokemons(result.results);
-        setNext(result.next);
-        setPrevious(result.previous);
+    const getPokemons = async () => {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        setPokemons(data.results);
+        setNext(data.next);
+        setPrevious(data.previous);
         setLoading(false);
         setLoaded(true);
         setError(null);
-      })
-      .catch((error) => {
-        setError(error.message);
+      } catch (error) {
+        setError('Could not fetch data');
         setLoading(false);
         setLoaded(false);
-      });
+        console.log(error);
+      }
+    };
+
+    getPokemons();
   }, [url]);
 
   const handleNext = () => {
