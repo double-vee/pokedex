@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '../../components/button';
 
 export function Pagination({ setUrl, previous, next, pokemonCount }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,22 +51,22 @@ export function Pagination({ setUrl, previous, next, pokemonCount }) {
       </ul>
       <div className="flex justify-center gap-6">
         {currentPage > 1 && (
-          <button
-            className="w-20 sm:w-28 p-2 sm:px-4 bg-white hover:bg-red-100 rounded text-red-500 poke-font font-semibold text-xl"
+          <Button
+            className="w-20 sm:w-28 px-2 sm:px-4 text-xl"
             onClick={handlePrevious}
             aria-label="Previous"
           >
             ←
-          </button>
+          </Button>
         )}
         {currentPage < pageCount && (
-          <button
-            className="w-20 sm:w-28 p-2 sm:px-4 bg-white hover:bg-red-100 rounded text-red-500 poke-font font-semibold text-xl"
+          <Button
+            className="w-20 sm:w-28 px-2 sm:px-4 text-xl"
             onClick={handleNext}
             aria-label="Next"
           >
             →
-          </button>
+          </Button>
         )}
       </div>
     </nav>

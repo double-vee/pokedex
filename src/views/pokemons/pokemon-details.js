@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Page } from '../../components/page';
 import { Title } from '../../components/title';
+import { Button } from '../../components/button';
 
 export const PokemonDetails = () => {
   const { id } = useParams();
@@ -105,8 +106,7 @@ export const PokemonDetails = () => {
               </Link>
             </>
           ) : (
-            <button
-              className="poke-font py-2 px-4 bg-white hover:bg-red-100 rounded text-red-500 font-semibold text-base uppercase"
+            <Button
               onClick={addToFav}
               disabled={favState !== 'initial'}
             >
@@ -115,7 +115,7 @@ export const PokemonDetails = () => {
                 : favState === 'faving'
                 ? 'Adding...'
                 : 'Added!'}
-            </button>
+            </Button>
           )}
         </>
       )}
