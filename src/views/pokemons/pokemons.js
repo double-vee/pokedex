@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { Page } from '../../components/page';
 import { Title } from '../../components/title';
 import { Pokemon } from './pokemon';
+import { Pagination } from './pagination';
 
 export function Pokemons() {
   const API_URL = 'https://pokeapi.co/api/v2/pokemon';
 
   const [pokemons, setPokemons] = useState([]);
+  const [pokemonCount, setPokemonCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(null);
@@ -21,6 +23,7 @@ export function Pokemons() {
         const data = await response.json();
 
         setPokemons(data.results);
+        setPokemonCount(data.count);
         setNext(data.next);
         setPrevious(data.previous);
         setLoading(false);
@@ -36,14 +39,6 @@ export function Pokemons() {
 
     getPokemons();
   }, [url]);
-
-  const handleNext = () => {
-    setUrl(next);
-  };
-
-  const handlePrevious = () => {
-    setUrl(previous);
-  };
 
   return (
     <Page>
@@ -82,24 +77,12 @@ export function Pokemons() {
               />
             ))}
           </ol>
-          <div className="flex justify-center gap-6">
-            <button
-              className="w-20 sm:w-28 p-2 sm:px-4 bg-white hover:bg-red-100 rounded text-red-500 poke-font font-semibold text-xl"
-              onClick={handlePrevious}
-              disabled={!previous}
-              aria-label="Previous"
-            >
-              ←
-            </button>
-            <button
-              className="w-20 sm:w-28 p-2 sm:px-4 bg-white hover:bg-red-100 rounded text-red-500 poke-font font-semibold text-xl"
-              onClick={handleNext}
-              disabled={!next}
-              aria-label="Next"
-            >
-              →
-            </button>
-          </div>
+          <Pagination
+            setUrl={setUrl}
+            previous={previous}
+            next={next}
+            pokemonCount={pokemonCount}
+          />
         </>
       )}
     </Page>
