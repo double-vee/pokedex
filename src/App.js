@@ -8,7 +8,7 @@ import { PokemonDetails } from './views/pokemons/pokemon-details';
 function App() {
   return (
     <main className="App min-h-full overflow-auto p-4 bg-red-100">
-      <div className="max-w-2xl sm:py-8 mx-auto">
+      <div className="max-w-3xl sm:py-8 mx-auto">
         <Router>
           <div>
             <nav>

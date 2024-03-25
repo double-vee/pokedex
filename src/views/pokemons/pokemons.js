@@ -42,7 +42,7 @@ export function Pokemons() {
 
   return (
     <Page>
-      <Title>Pokemons list</Title>
+      <Title>Pokemons</Title>
 
       {loading && (
         <p className="poke-font font-semibold text-center text-white">
@@ -65,7 +65,7 @@ export function Pokemons() {
 
       {loaded && pokemons.length > 0 && (
         <>
-          <ol className="poke-font text-white grid grid-cols-1 sm:grid-cols-2 grid-flow-row-dense gap-y-2 gap-x-8 sm:mt-4 mb-8">
+          <ol className="poke-font text-white grid grid-cols-1 sm:grid-cols-2 grid-flow-row-dense gap-y-2 gap-x-8 sm:mt-4 mb-8 px-2">
             {pokemons.map((pokemon, index) => (
               <Pokemon
                 key={pokemon.url.split('/')[6]}
